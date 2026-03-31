@@ -1,0 +1,2524 @@
+{
+  "info": {
+    "_postman_id": "23f2e478-56a2-4ce7-9bf1-d93fb1a3c80b",
+    "name": "Agendamento Servico",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "15617156"
+  },
+  "item": [
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "Cadastrar cliente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const r = pm.response.json();",
+                  "if (r.dados && r.dados.id) { pm.collectionVariables.set('clienteId', r.dados.id); }"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João Silva\",\n  \"telefone\": \"(13) 99999-0001\",\n  \"email\": \"joao.silva@email.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/clientes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar cliente",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João Silva Atualizado\",\n  \"telefone\": \"(13) 99999-0002\",\n  \"email\": \"joao.silva.novo@email.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/clientes/{{clienteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes",
+                "{{clienteId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar clientes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/clientes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar cliente",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/clientes/{{clienteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes",
+                "{{clienteId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Erro 404] Buscar cliente com ID inválido",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/clientes/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Estabelecimentos",
+      "item": [
+        {
+          "name": "Cadastrar estabelecimento",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const r = pm.response.json();",
+                  "if (r.dados && r.dados.id) { pm.collectionVariables.set('estabelecimentoId', r.dados.id); }"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Salao Beleza X\",\n  \"endereco\": {\n    \"rua\": \"Av Ana Costa\",\n    \"numero\": \"120\",\n    \"complemento\": \"Sala 1\",\n    \"bairro\": \"Gonzaga\",\n    \"cep\": \"01310-100\",\n    \"cidade\": \"Santos\"\n  },\n  \"horaInicio\": \"09:00:00\",\n  \"horaFim\": \"18:00:00\",\n  \"intervaloMinutos\": 30,\n  \"fotoPrincipalUrl\": \"https://exemplo.com/foto.jpg\",\n  \"galeriaUrls\": [\"https://exemplo.com/galeria1.jpg\"],\n  \"servicos\": [],\n  \"profissionais\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cadastrar estabelecimento (campos opcionais nao preenchidos)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Salao Beleza Y\",\n  \"endereco\": {\n    \"rua\": \"Av. Paulista\",\n    \"numero\": \"1000\",\n    \"complemento\": null,\n    \"bairro\": \"Bela Vista\",\n    \"cep\": \"01310-200\",\n    \"cidade\": \"Sao Paulo\"\n  },\n  \"horaInicio\": \"08:00:00\",\n  \"horaFim\": \"17:00:00\",\n  \"intervaloMinutos\": 45,\n  \"fotoPrincipalUrl\": null,\n  \"galeriaUrls\": [],\n  \"servicos\": [],\n  \"profissionais\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar todos os estabelecimentos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar estabelecimentos por cidade",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos?cidade=Santos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos"
+              ],
+              "query": [
+                {
+                  "key": "cidade",
+                  "value": "Santos"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar estabelecimentos por nota",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos?notaMinima=4.0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos"
+              ],
+              "query": [
+                {
+                  "key": "notaMinima",
+                  "value": "4.0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar estabelecimentos por cidade e nota",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos?cidade=Santos&notaMinima=4.0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos"
+              ],
+              "query": [
+                {
+                  "key": "cidade",
+                  "value": "Santos"
+                },
+                {
+                  "key": "notaMinima",
+                  "value": "4.0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar estabelecimentos por nome, cidade e nota",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos?nome=Salao&cidade=Santos&notaMinima=3.0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos"
+              ],
+              "query": [
+                {
+                  "key": "nome",
+                  "value": "Salao"
+                },
+                {
+                  "key": "cidade",
+                  "value": "Santos"
+                },
+                {
+                  "key": "notaMinima",
+                  "value": "3.0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar servicos do estabelecimento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos/{{estabelecimentoId}}/servicos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos",
+                "{{estabelecimentoId}}",
+                "servicos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar profissionais do estabelecimento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos/{{estabelecimentoId}}/profissionais",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos",
+                "{{estabelecimentoId}}",
+                "profissionais"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar servicos com profissionais do estabelecimento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos/{{estabelecimentoId}}/servicos/completo",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos",
+                "{{estabelecimentoId}}",
+                "servicos",
+                "completo"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar dados do estabelecimento",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Salao Beleza X Atualizado\",\n  \"endereco\": {\n    \"rua\": \"Av Ana Costa\",\n    \"numero\": \"120\",\n    \"complemento\": \"Sala 2\",\n    \"bairro\": \"Gonzaga\",\n    \"cep\": \"01310-100\",\n    \"cidade\": \"Santos\"\n  },\n  \"servicos\": [],\n  \"profissionais\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos/{{estabelecimentoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos",
+                "{{estabelecimentoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar horarios do estabelecimento",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"horaInicio\": \"08:30:00\",\n  \"horaFim\": \"17:00:00\",\n  \"intervaloMinutos\": 30\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos/{{estabelecimentoId}}/horarios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos",
+                "{{estabelecimentoId}}",
+                "horarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar estabelecimento",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos/{{estabelecimentoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos",
+                "{{estabelecimentoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Erro 400] Cadastrar estabelecimento com nome vazio",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"\",\n  \"endereco\": {\n    \"rua\": \"Rua X\",\n    \"numero\": \"1\",\n    \"complemento\": null,\n    \"bairro\": \"Centro\",\n    \"cep\": \"01310-100\",\n    \"cidade\": \"Sao Paulo\"\n  },\n  \"horaInicio\": \"09:00:00\",\n  \"horaFim\": \"18:00:00\",\n  \"intervaloMinutos\": 30,\n  \"fotoPrincipalUrl\": null,\n  \"galeriaUrls\": [],\n  \"servicos\": [],\n  \"profissionais\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Erro 404] Atualizar estabelecimento com ID inexistente",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Inexistente\",\n  \"endereco\": {\n    \"rua\": \"Rua X\",\n    \"numero\": \"1\",\n    \"complemento\": null,\n    \"bairro\": \"Bairro X\",\n    \"cep\": \"00000-000\",\n    \"cidade\": \"Cidade X\"\n  },\n  \"servicos\": [],\n  \"profissionais\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Servicos",
+      "item": [
+        {
+          "name": "Cadastrar servico (vinculado ao estabelecimento)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const r = pm.response.json();",
+                  "if (r.dados && r.dados.id) { pm.collectionVariables.set('servicoId', r.dados.id); }"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estabelecimentoId\": \"{{estabelecimentoId}}\",\n  \"nome\": \"Corte Masculino\",\n  \"descricao\": \"Corte moderno com lavagem e finalizacao\",\n  \"preco\": 95.00,\n  \"duracaoMinutos\": 60\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/servicos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "servicos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar servico",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Corte Feminino Atualizado\",\n  \"descricao\": \"Corte premium com tratamento capilar\",\n  \"preco\": 120.00,\n  \"duracaoMinutos\": 75\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/servicos/{{servicoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "servicos",
+                "{{servicoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar servico",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/servicos/{{servicoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "servicos",
+                "{{servicoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Erro 404] Atualizar servico com ID inexistente",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Inexistente\",\n  \"descricao\": \"Teste\",\n  \"preco\": 50.00,\n  \"duracaoMinutos\": 30\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/servicos/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "servicos",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Erro 404] Cadastrar servico com estabelecimento inexistente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estabelecimentoId\": \"00000000-0000-0000-0000-000000000000\",\n  \"nome\": \"Servico Orfao\",\n  \"descricao\": \"Cadastro em estabelecimento inexistente\",\n  \"preco\": 50.00,\n  \"duracaoMinutos\": 30\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/servicos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "servicos"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Profissionais",
+      "item": [
+        {
+          "name": "Cadastrar profissional (vinculado ao estabelecimento)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const r = pm.response.json();",
+                  "if (r.dados && r.dados.id) { pm.collectionVariables.set('profissionalId', r.dados.id); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Ana Paula\",\n  \"email\": \"ana.paula@salao.com\",\n  \"estabelecimentoId\": \"{{estabelecimentoId}}\",\n  \"especialidades\": [\"Corte Feminino\", \"Coloracao\"],\n  \"horaInicioTrabalho\": \"09:00:00\",\n  \"horaFimTrabalho\": \"17:00:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/profissionais",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "profissionais"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar profissional",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Ana Paula Atualizado\",\n  \"email\": \"ana.paula.atualizado@salao.com\",\n  \"especialidades\": [\"Corte Feminino\", \"Coloracao\", \"Progressiva\"],\n  \"horaInicioTrabalho\": \"09:00:00\",\n  \"horaFimTrabalho\": \"16:00:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/profissionais/{{profissionalId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "profissionais",
+                "{{profissionalId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Vincular servico ao profissional",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/profissionais/{{profissionalId}}/servicos/{{servicoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "profissionais",
+                "{{profissionalId}}",
+                "servicos",
+                "{{servicoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar profissional",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/profissionais/{{profissionalId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "profissionais",
+                "{{profissionalId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Erro 404] Atualizar profissional com ID inexistente",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Inexistente\",\n  \"especialidades\": [\"Manicure\"],\n  \"horaInicioTrabalho\": \"09:00:00\",\n  \"horaFimTrabalho\": \"17:00:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/profissionais/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "profissionais",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Erro 404] Cadastrar profissional com estabelecimento inexistente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Profissional Orfao\",\n  \"email\": \"orfao@teste.com\",\n  \"estabelecimentoId\": \"00000000-0000-0000-0000-000000000000\",\n  \"especialidades\": [\"Corte\"],\n  \"horaInicioTrabalho\": \"09:00:00\",\n  \"horaFimTrabalho\": \"17:00:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/profissionais",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "profissionais"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Agendamentos",
+      "item": [
+        {
+          "name": "Consultar grade completa de horarios com profissionais",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/agendamento/grade/estabelecimento?estabelecimentoId={{estabelecimentoId}}&data={{agendamentoData}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agendamento",
+                "grade",
+                "estabelecimento"
+              ],
+              "query": [
+                {
+                  "key": "estabelecimentoId",
+                  "value": "{{estabelecimentoId}}"
+                },
+                {
+                  "key": "data",
+                  "value": "{{agendamentoData}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Consultar grade de horarios disponiveis",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/agendamento/grade/disponivel?estabelecimentoId={{estabelecimentoId}}&data={{agendamentoData}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agendamento",
+                "grade",
+                "disponivel"
+              ],
+              "query": [
+                {
+                  "key": "estabelecimentoId",
+                  "value": "{{estabelecimentoId}}"
+                },
+                {
+                  "key": "data",
+                  "value": "{{agendamentoData}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Consultar grade de horarios com servico especifico",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/agendamento/grade/servico?estabelecimentoId={{estabelecimentoId}}&data={{agendamentoData}}&servicoId={{servicoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agendamento",
+                "grade",
+                "servico"
+              ],
+              "query": [
+                {
+                  "key": "estabelecimentoId",
+                  "value": "{{estabelecimentoId}}"
+                },
+                {
+                  "key": "data",
+                  "value": "{{agendamentoData}}"
+                },
+                {
+                  "key": "servicoId",
+                  "value": "{{servicoId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reservar agendamento",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const r = pm.response.json();",
+                  "if (r.dados && r.dados.id) { pm.collectionVariables.set('agendamentoId', r.dados.id); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": \"{{clienteId}}\",\n  \"profissionalId\": \"{{profissionalId}}\",\n  \"servicoId\": \"{{servicoId}}\",\n  \"dataHoraInicio\": \"{{agendamentoDataHora}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/agendamento/reservar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agendamento",
+                "reservar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar agendamento",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/gerenciamento/agendamento/deletar/{{agendamentoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gerenciamento",
+                "agendamento",
+                "deletar",
+                "{{agendamentoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Erro 404] Reservar agendamento com servico inexistente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": \"{{clienteId}}\",\n  \"profissionalId\": \"{{profissionalId}}\",\n  \"servicoId\": \"00000000-0000-0000-0000-000000000000\",\n  \"dataHoraInicio\": \"{{agendamentoDataHora}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/agendamento/reservar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agendamento",
+                "reservar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Erro 422] Reservar agendamento horário não atendido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": \"{{clienteId}}\",\n  \"profissionalId\": \"{{profissionalId}}\",\n  \"servicoId\": \"{{servicoId}}\",\n  \"dataHoraInicio\": \"2026-04-15T22:00:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/agendamento/reservar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agendamento",
+                "reservar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Erro 404] Reservar agendamento com profissional inexistente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": \"{{clienteId}}\",\n  \"profissionalId\": \"00000000-0000-0000-0000-000000000000\",\n  \"servicoId\": \"{{servicoId}}\",\n  \"dataHoraInicio\": \"{{agendamentoDataHora}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/agendamento/reservar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agendamento",
+                "reservar"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Gerenciamento de Agendamentos",
+      "item": [
+        {
+          "name": "Listar agendamentos do cliente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/gerenciamento/agendamento/cliente/{{clienteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gerenciamento",
+                "agendamento",
+                "cliente",
+                "{{clienteId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Confirmar agendamento",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/gerenciamento/agendamento/confirmar/{{agendamentoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gerenciamento",
+                "agendamento",
+                "confirmar",
+                "{{agendamentoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancelar agendamento",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/gerenciamento/agendamento/cancelar/{{agendamentoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gerenciamento",
+                "agendamento",
+                "cancelar",
+                "{{agendamentoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Concluir agendamento",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/gerenciamento/agendamento/concluir/{{agendamentoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gerenciamento",
+                "agendamento",
+                "concluir",
+                "{{agendamentoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Marcar nao comparecimento",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/gerenciamento/agendamento/nao-compareceu/{{agendamentoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gerenciamento",
+                "agendamento",
+                "nao-compareceu",
+                "{{agendamentoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reagendar para nova data",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"novaDataHoraInicio\": \"2026-04-16T10:00:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/gerenciamento/agendamento/reagendar/{{agendamentoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gerenciamento",
+                "agendamento",
+                "reagendar",
+                "{{agendamentoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Erro 404] Confirmar agendamento com ID inexistente",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/gerenciamento/agendamento/confirmar/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gerenciamento",
+                "agendamento",
+                "confirmar",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Erro 422] Reagendar com horario indisponivel",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"novaDataHoraInicio\": \"{{agendamentoDataHora}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/gerenciamento/agendamento/reagendar/{{agendamentoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gerenciamento",
+                "agendamento",
+                "reagendar",
+                "{{agendamentoId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Avaliacoes",
+      "item": [
+        {
+          "name": "Registrar avaliacao nota 5",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agendamentoId\": \"{{agendamentoId}}\",\n  \"nota\": 5,\n  \"comentario\": \"Excelente atendimento, muito satisfeita!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/avaliacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "avaliacoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Registrar avaliacao nota 3",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agendamentoId\": \"{{agendamentoId}}\",\n  \"nota\": 3,\n  \"comentario\": \"Servico razoavel, poderia melhorar.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/avaliacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "avaliacoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar avaliacoes do estabelecimento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/avaliacoes/estabelecimento/{{estabelecimentoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "avaliacoes",
+                "estabelecimento",
+                "{{estabelecimentoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Erro 400] Avaliar com nota invalida",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agendamentoId\": \"{{agendamentoId}}\",\n  \"nota\": 6,\n  \"comentario\": \"Nota acima do permitido\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/avaliacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "avaliacoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Erro 400] Avaliar agendamento nao concluido (preencher id pendente)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agendamentoId\": \"{{agendamentoId}}\",\n  \"nota\": 5,\n  \"comentario\": \"Agendamento ainda nao concluido\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/avaliacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "avaliacoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Erro 404] Listar avaliacoes com estabelecimento inexistente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/avaliacoes/estabelecimento/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "avaliacoes",
+                "estabelecimento",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Fluxo Completo",
+      "item": [
+        {
+          "name": "00 - Cadastrar cliente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const r = pm.response.json();",
+                  "if (r.dados && r.dados.id) { pm.collectionVariables.set('clienteId', r.dados.id); }"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João Silva\",\n  \"telefone\": \"(13) 99999-0001\",\n  \"email\": \"joao.silva@email.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/clientes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "01 - Cadastrar estabelecimento",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const r = pm.response.json();",
+                  "if (r.dados && r.dados.id) { pm.collectionVariables.set('estabelecimentoId', r.dados.id); }"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Salao Beleza Santos\",\n  \"endereco\": {\n    \"rua\": \"Av Ana Costa\",\n    \"numero\": \"100\",\n    \"complemento\": \"Sala 1\",\n    \"bairro\": \"Gonzaga\",\n    \"cep\": \"01310-100\",\n    \"cidade\": \"Santos\"\n  },\n  \"horaInicio\": \"09:00:00\",\n  \"horaFim\": \"18:00:00\",\n  \"intervaloMinutos\": 30,\n  \"fotoPrincipalUrl\": null,\n  \"galeriaUrls\": [],\n  \"servicos\": [],\n  \"profissionais\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "02 - Cadastrar profissional Maria",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const r = pm.response.json();",
+                  "if (r.dados && r.dados.id) { pm.collectionVariables.set('profissionalMariaId', r.dados.id); }"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Maria Oliveira\",\n  \"estabelecimentoId\": \"{{estabelecimentoId}}\",\n  \"especialidades\": [\"Manicure\", \"Pedicure\"],\n  \"horaInicioTrabalho\": \"09:00:00\",\n  \"horaFimTrabalho\": \"17:00:00\",\n  \"email\":\"maria@email.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/profissionais",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "profissionais"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "03 - Cadastrar servico Manicure",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const r = pm.response.json();",
+                  "if (r.dados && r.dados.id) { pm.collectionVariables.set('servicoManicureId', r.dados.id); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estabelecimentoId\": \"{{estabelecimentoId}}\",\n  \"nome\": \"Manicure\",\n  \"descricao\": \"Manicure completa com esmaltacao\",\n  \"preco\": 45.00,\n  \"duracaoMinutos\": 30\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/servicos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "servicos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "04 - Vincular servico Manicure a profissional Maria",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/profissionais/{{profissionalMariaId}}/servicos/{{servicoManicureId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "profissionais",
+                "{{profissionalMariaId}}",
+                "servicos",
+                "{{servicoManicureId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "05 - Cadastrar profissional Carlos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const r = pm.response.json();",
+                  "if (r.dados && r.dados.id) { pm.collectionVariables.set('profissionalCarlosId', r.dados.id); }"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Carlos Souza\",\n  \"estabelecimentoId\": \"{{estabelecimentoId}}\",\n  \"especialidades\": [\"Corte Masculino\", \"Barba\"],\n  \"horaInicioTrabalho\": \"10:00:00\",\n  \"horaFimTrabalho\": \"18:00:00\",\n   \"email\":\"carlos@email.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/profissionais",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "profissionais"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "06 - Cadastrar servico Corte Masculino",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const r = pm.response.json();",
+                  "if (r.dados && r.dados.id) { pm.collectionVariables.set('servicoCorteMasculinoId', r.dados.id); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estabelecimentoId\": \"{{estabelecimentoId}}\",\n  \"nome\": \"Corte Masculino\",\n  \"descricao\": \"Corte social ou degradê\",\n  \"preco\": 55.00,\n  \"duracaoMinutos\": 30\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/servicos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "servicos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "07 - Vincular servico Corte Masculino ao profissional Carlos",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/profissionais/{{profissionalCarlosId}}/servicos/{{servicoCorteMasculinoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "profissionais",
+                "{{profissionalCarlosId}}",
+                "servicos",
+                "{{servicoCorteMasculinoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "08 - Verificar grade de horarios do estabelecimento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/agendamento/grade/estabelecimento?estabelecimentoId={{estabelecimentoId}}&data={{agendamentoData}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agendamento",
+                "grade",
+                "estabelecimento"
+              ],
+              "query": [
+                {
+                  "key": "estabelecimentoId",
+                  "value": "{{estabelecimentoId}}"
+                },
+                {
+                  "key": "data",
+                  "value": "{{agendamentoData}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "09 - Reservar agendamento com Maria",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const r = pm.response.json();",
+                  "if (r.dados && r.dados.id) {",
+                  "  pm.collectionVariables.set('agendamentoMariaId', r.dados.id);",
+                  "  pm.collectionVariables.set('agendamentoId', r.dados.id);",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": \"{{clienteId}}\",\n  \"profissionalId\": \"{{profissionalMariaId}}\",\n  \"servicoId\": \"{{servicoManicureId}}\",\n  \"dataHoraInicio\": \"2026-04-15T09:00:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/agendamento/reservar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agendamento",
+                "reservar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "10 - Confirmar agendamento com Maria",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/gerenciamento/agendamento/confirmar/{{agendamentoMariaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gerenciamento",
+                "agendamento",
+                "confirmar",
+                "{{agendamentoMariaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "11 - Listar grade com periodo do agendamento ocupado (9h)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/agendamento/grade/estabelecimento?estabelecimentoId={{estabelecimentoId}}&data={{agendamentoData}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agendamento",
+                "grade",
+                "estabelecimento"
+              ],
+              "query": [
+                {
+                  "key": "estabelecimentoId",
+                  "value": "{{estabelecimentoId}}"
+                },
+                {
+                  "key": "data",
+                  "value": "{{agendamentoData}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "12 - Listar grade disponível por servico Manicure",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/agendamento/grade/servico?estabelecimentoId={{estabelecimentoId}}&data={{agendamentoData}}&servicoId={{servicoManicureId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agendamento",
+                "grade",
+                "servico"
+              ],
+              "query": [
+                {
+                  "key": "estabelecimentoId",
+                  "value": "{{estabelecimentoId}}"
+                },
+                {
+                  "key": "data",
+                  "value": "{{agendamentoData}}"
+                },
+                {
+                  "key": "servicoId",
+                  "value": "{{servicoManicureId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "13 - Listar grade com periodos disponiveis (não tem 9h)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/agendamento/grade/disponivel?estabelecimentoId={{estabelecimentoId}}&data={{agendamentoData}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agendamento",
+                "grade",
+                "disponivel"
+              ],
+              "query": [
+                {
+                  "key": "estabelecimentoId",
+                  "value": "{{estabelecimentoId}}"
+                },
+                {
+                  "key": "data",
+                  "value": "{{agendamentoData}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "14 - Concluir agendamento com Maria",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/gerenciamento/agendamento/concluir/{{agendamentoMariaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gerenciamento",
+                "agendamento",
+                "concluir",
+                "{{agendamentoMariaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "15 - Registrar avaliacao do agendamento com Maria",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agendamentoId\": \"{{agendamentoMariaId}}\",\n  \"nota\": 5,\n  \"comentario\": \"Manicure impecavel, adorei o atendimento!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/avaliacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "avaliacoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "16 - Reservar agendamento com Carlos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const r = pm.response.json();",
+                  "if (r.dados && r.dados.id) {",
+                  "  pm.collectionVariables.set('agendamentoCarlosId', r.dados.id);",
+                  "  pm.collectionVariables.set('agendamentoId', r.dados.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": \"{{clienteId}}\",\n  \"profissionalId\": \"{{profissionalCarlosId}}\",\n  \"servicoId\": \"{{servicoCorteMasculinoId}}\",\n  \"dataHoraInicio\": \"{{agendamentoCarlosDataHora}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/agendamento/reservar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agendamento",
+                "reservar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "17 - Confirmar agendamento com Carlos",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/gerenciamento/agendamento/confirmar/{{agendamentoCarlosId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gerenciamento",
+                "agendamento",
+                "confirmar",
+                "{{agendamentoCarlosId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "16 - [422] Reservar agendamento com horário indisponível",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const r = pm.response.json();",
+                  "if (r.dados && r.dados.id) {",
+                  "  pm.collectionVariables.set('agendamentoCarlosId', r.dados.id);",
+                  "  pm.collectionVariables.set('agendamentoId', r.dados.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": \"{{clienteId}}\",\n  \"profissionalId\": \"{{profissionalCarlosId}}\",\n  \"servicoId\": \"{{servicoCorteMasculinoId}}\",\n  \"dataHoraInicio\": \"{{agendamentoCarlosDataHora}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/agendamento/reservar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agendamento",
+                "reservar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "18 - Consultar agendamentos do cliente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/gerenciamento/agendamento/cliente/{{clienteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gerenciamento",
+                "agendamento",
+                "cliente",
+                "{{clienteId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "19 - Concluir agendamento com Carlos",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/gerenciamento/agendamento/concluir/{{agendamentoCarlosId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gerenciamento",
+                "agendamento",
+                "concluir",
+                "{{agendamentoCarlosId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "20 - Registrar avaliacao do agendamento com Carlos",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agendamentoId\": \"{{agendamentoCarlosId}}\",\n  \"nota\": 3,\n  \"comentario\": \"Demorou um pouco!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/avaliacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "avaliacoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "21 - Ver avaliacoes do estabelecimento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/avaliacoes/estabelecimento/{{estabelecimentoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "avaliacoes",
+                "estabelecimento",
+                "{{estabelecimentoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "22 - Listar estabelecimentos (nota calculada)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "23 - Listar estabelecimentos por nota media",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos?notaMinima=4.0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos"
+              ],
+              "query": [
+                {
+                  "key": "notaMinima",
+                  "value": "4.0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "24 - Listar servicos com profissionais do estabelecimento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos/{{estabelecimentoId}}/servicos/completo",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos",
+                "{{estabelecimentoId}}",
+                "servicos",
+                "completo"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "25 - Listar profissionais do estabelecimento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos/{{estabelecimentoId}}/profissionais",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos",
+                "{{estabelecimentoId}}",
+                "profissionais"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "26 - Listar profissionais do estabelecimento por nota",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/profissionais/busca?estabelecimentoId={{estabelecimentoId}}&notaMinima=4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "profissionais",
+                "busca"
+              ],
+              "query": [
+                {
+                  "key": "estabelecimentoId",
+                  "value": "{{estabelecimentoId}}"
+                },
+                {
+                  "key": "notaMinima",
+                  "value": "4"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "27 - [400] Deletar servico Corte Masculino (não será possível devido a vínculos)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/servicos/{{servicoCorteMasculinoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "servicos",
+                "{{servicoCorteMasculinoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "28 - [400] Deletar profissional Carlos (não será possível devido a vínculos)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/profissionais/{{profissionalCarlosId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "profissionais",
+                "{{profissionalCarlosId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "29 - Deletar estabelecimento",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/estabelecimentos/{{estabelecimentoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estabelecimentos",
+                "{{estabelecimentoId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "clienteId",
+      "value": "",
+      "type": "string",
+      "description": "Preenchido automaticamente ao cadastrar cliente"
+    },
+    {
+      "key": "usuarioId",
+      "value": "550e8400-e29b-41d4-a716-446655440000",
+      "type": "string",
+      "description": "UUID fixo para vincular profissional a usuario"
+    },
+    {
+      "key": "estabelecimentoId",
+      "value": "",
+      "type": "string",
+      "description": "Preenchido automaticamente ao cadastrar estabelecimento"
+    },
+    {
+      "key": "profissionalId",
+      "value": "",
+      "type": "string",
+      "description": "Preenchido automaticamente ao cadastrar profissional (uso geral)"
+    },
+    {
+      "key": "profissionalMariaId",
+      "value": "",
+      "type": "string",
+      "description": "Preenchido no fluxo completo - profissional Maria"
+    },
+    {
+      "key": "profissionalCarlosId",
+      "value": "",
+      "type": "string",
+      "description": "Preenchido no fluxo completo - profissional Carlos"
+    },
+    {
+      "key": "servicoId",
+      "value": "",
+      "type": "string",
+      "description": "Preenchido automaticamente ao cadastrar servico (uso geral)"
+    },
+    {
+      "key": "servicoManicureId",
+      "value": "",
+      "type": "string",
+      "description": "Preenchido no fluxo completo - servico Manicure"
+    },
+    {
+      "key": "servicoCorteMasculinoId",
+      "value": "",
+      "type": "string",
+      "description": "Preenchido no fluxo completo - servico Corte Masculino"
+    },
+    {
+      "key": "agendamentoId",
+      "value": "",
+      "type": "string",
+      "description": "Preenchido automaticamente ao reservar agendamento (uso geral)"
+    },
+    {
+      "key": "agendamentoMariaId",
+      "value": "",
+      "type": "string",
+      "description": "Preenchido no fluxo completo - agendamento com Maria"
+    },
+    {
+      "key": "agendamentoCarlosId",
+      "value": "",
+      "type": "string",
+      "description": "Preenchido no fluxo completo - agendamento com Carlos"
+    },
+    {
+      "key": "agendamentoData",
+      "value": "2026-04-15",
+      "type": "string",
+      "description": "Data para consultas de grade (YYYY-MM-DD)"
+    },
+    {
+      "key": "agendamentoDataHora",
+      "value": "2026-04-15T10:00:00",
+      "type": "string",
+      "description": "Data e hora para agendamento com Maria"
+    },
+    {
+      "key": "agendamentoCarlosDataHora",
+      "value": "2026-04-15T11:00:00",
+      "type": "string",
+      "description": "Data e hora para agendamento com Carlos"
+    }
+  ]
+}

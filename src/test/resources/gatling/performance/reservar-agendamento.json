@@ -1,0 +1,6 @@
+{
+  "clienteId": "#{clienteId}",
+  "profissionalId": "#{profissionalId}",
+  "servicoId": "#{servicoId}",
+  "dataHoraInicio": "#{dataHoraInicio}"
+}
